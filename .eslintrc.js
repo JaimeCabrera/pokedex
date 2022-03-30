@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 module.exports = {
   root: true,
   extends: '@react-native-community',
@@ -11,6 +12,7 @@ module.exports = {
         'no-shadow': 'off',
         'no-undef': 'off',
         'prettier/prettier': 0,
+        'react-hooks/exhaustive-deps': 0,
       },
     },
   ],
