@@ -14,6 +14,7 @@ import {PokemonCard} from '../components/PokemonCard';
 
 export const Home = () => {
   const {simplePokemonList, loadPokemons} = usePokemonPaginated();
+
   return (
     <>
       <SafeAreaView>

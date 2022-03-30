@@ -9,6 +9,8 @@ import {
 import {SimplePokemon} from '../interfaces/pokemoninterface';
 import {Image} from 'react-native';
 import {FadeInImage} from './FadeInImage';
+import {useImageColors} from '../hooks/useImageColors';
+import {useNavigation} from '@react-navigation/native';
 
 const windowwidth = Dimensions.get('window').width;
 
@@ -17,9 +19,24 @@ interface Props {
 }
 
 export const PokemonCard = ({pokemon}: Props) => {
+  const {bgColor, secondaryColor} = useImageColors(pokemon.picture);
+  const navigator = useNavigation<any>();
+
   return (
-    <TouchableOpacity activeOpacity={0.8}>
-      <View style={{...styles.cardContainer, width: windowwidth * 0.45}}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() =>
+        navigator.navigate('Pokemon', {
+          simplePokemon: pokemon,
+          color: secondaryColor,
+        })
+      }>
+      <View
+        style={{
+          ...styles.cardContainer,
+          width: windowwidth * 0.45,
+          backgroundColor: bgColor,
+        }}>
         {/* nombre del pokemon y id */}
         <View>
           <Text style={styles.pokemonName}>
@@ -42,7 +59,6 @@ export const PokemonCard = ({pokemon}: Props) => {
 const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 10,
-    // backgroundColor: 'red',
     width: 160,
     height: 120,
     marginBottom: 25,
@@ -61,7 +77,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
+    // textAlign: 'center',
     top: 20,
     left: 10,
   },
