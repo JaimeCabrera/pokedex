@@ -1,14 +1,16 @@
 import React from 'react';
 import {
   Image,
-  StyleSheet,
   SafeAreaView,
   FlatList,
   ActivityIndicator,
+  Text,
+  View,
+  StyleSheet,
 } from 'react-native';
-import {FadeInImage} from '../components/FadeInImage';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 import {globalStyles} from '../theme/appTheme';
+import {PokemonCard} from '../components/PokemonCard';
 
 export const Home = () => {
   const {simplePokemonList, loadPokemons} = usePokemonPaginated();
@@ -20,37 +22,43 @@ export const Home = () => {
           style={globalStyles.pokebolaBg}
         />
 
-        <FlatList
-          data={simplePokemonList}
-          renderItem={({item}) => (
-            <FadeInImage style={styles.image} uri={item.picture} />
-          )}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={item => item.id}
-          // para el infinite scroll
-          onEndReached={loadPokemons}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={() => (
-            // cuando llegue al final oculta el indicador de carga
-            <ActivityIndicator color={'blue'} size={40} />
-          )}
-        />
-
-        {/* <Text
-          style={[
-            globalStyles.globalTitle,
-            globalStyles.globalMarginHorizontal,
-          ]}>
-          Pokedex
-        </Text> */}
+        <View style={styles.flatListContainer}>
+          <FlatList
+            ListHeaderComponent={() => (
+              <Text
+                style={[
+                  globalStyles.globalTitle,
+                  globalStyles.globalMarginHorizontal,
+                  styles.title,
+                ]}>
+                Pokedex
+              </Text>
+            )}
+            data={simplePokemonList}
+            renderItem={({item}) => <PokemonCard pokemon={item} />}
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            keyExtractor={item => item.id}
+            // para el infinite scroll
+            onEndReached={loadPokemons}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={() => (
+              // cuando llegue al final oculta el indicador de carga
+              <ActivityIndicator color={'blue'} size={40} />
+            )}
+          />
+        </View>
       </SafeAreaView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    width: 100,
-    height: 100,
+  flatListContainer: {
+    alignItems: 'center',
+  },
+  title: {
+    paddingBottom: 15,
+    marginTop: 10,
   },
 });
