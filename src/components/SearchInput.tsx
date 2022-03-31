@@ -1,16 +1,21 @@
 import React from 'react';
 import {
+  StyleProp,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export const SearchInput = () => {
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const SearchInput = ({style}: Props) => {
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, ...(style as any)}}>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Buscar pokemon"
@@ -27,7 +32,9 @@ export const SearchInput = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    // marginTop: 30,
+    marginHorizontal: 20,
+    marginBottom: 10,
   },
   inputContainer: {
     backgroundColor: '#f3f3f3',

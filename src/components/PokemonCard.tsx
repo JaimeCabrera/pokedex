@@ -34,7 +34,7 @@ export const PokemonCard = ({pokemon}: Props) => {
       <View
         style={{
           ...styles.cardContainer,
-          width: windowwidth * 0.45,
+          width: windowwidth * 0.44,
           backgroundColor: bgColor,
         }}>
         {/* nombre del pokemon y id */}
@@ -70,15 +70,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
-    elevation: 3,
+    elevation: 5,
   },
   pokemonName: {
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-    // textAlign: 'center',
-    top: 20,
+    top: 15,
     left: 10,
   },
   pokebolaContainer: {
@@ -98,10 +96,10 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   pokemonImage: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     position: 'absolute',
-    right: -10,
+    right: -5,
     bottom: -10,
   },
 });
