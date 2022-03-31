@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, FlatList, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+  KeyboardAvoidingViewBase,
+  Keyboard,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Loading} from '../components/Loading';
 import {PokemonCard} from '../components/PokemonCard';
@@ -20,12 +28,21 @@ export const Search = () => {
       setPokemonFiltered([]);
     }
     if (searchTerm.length > 1) {
-      // aplicar filtro
-      setPokemonFiltered(
-        simplePokemonList.filter(poke =>
-          poke.name.toLowerCase().includes(searchTerm.toLowerCase()),
-        ),
-      );
+      if (isNaN(Number(searchTerm))) {
+        // aplicar filtro
+        setPokemonFiltered(
+          simplePokemonList.filter(poke =>
+            poke.name.toLowerCase().includes(searchTerm.toLowerCase()),
+          ),
+        );
+      } else {
+        // aplicar filtro
+        const pokemonById = simplePokemonList.find(
+          poke => poke.id === searchTerm,
+        );
+        // si el resultado no tiene nada retornar un array vacio
+        setPokemonFiltered(pokemonById ? [pokemonById] : []);
+      }
     }
   }, [searchTerm]);
 
@@ -34,7 +51,7 @@ export const Search = () => {
   }
   return (
     <View style={styles.searchContainer}>
-      <SafeAreaView>
+      <SafeAreaView onTouchStart={() => Keyboard.dismiss()}>
         <SearchInput
           onDebounce={value => setSearchTerm(value)}
           style={{
@@ -42,7 +59,7 @@ export const Search = () => {
             zIndex: 999,
             top: 20,
             opacity: 0.94,
-            width: WindowWidth - 10,
+            width: WindowWidth,
           }}
         />
         <FlatList
@@ -72,8 +89,8 @@ export const Search = () => {
 
 const styles = StyleSheet.create({
   searchContainer: {
-    flex: 1,
-    alignItems: 'center',
+    // flex: 1,
+    // alignItems: 'center',
     // justifyContent: 'center',
     // backgroundColor: 'blue',
   },

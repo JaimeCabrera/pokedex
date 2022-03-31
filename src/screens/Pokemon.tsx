@@ -1,7 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParams} from '../navigation/Navigation';
+import {RootStackParams} from '../navigation/Tab1';
 import {FadeInImage} from '../components/FadeInImage';
 import {usePokemonDetails} from '../hooks/usePokemonDetails';
 import {PokemonDetails} from '../components/PokemonDetails';
